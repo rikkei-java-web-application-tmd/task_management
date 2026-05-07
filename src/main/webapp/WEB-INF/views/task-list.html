@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách công việc</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 30px;">
+    <h2>Danh Sách Công Việc</h2>
+
+    <a th:href="@{/tasks/add}" style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #2980b9; color: white; text-decoration: none; border-radius: 5px;">
+        + Thêm Công Việc Mới
+    </a>
+
+    <table border="1" cellpadding="12" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead style="background-color: #ecf0f1;">
+            <tr>
+                <th>Mã công việc</th>
+                <th>Tên công việc</th>
+                <th>Hạn hoàn thành</th>
+                <th>Mức độ ưu tiên</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}" style="font-weight: bold;"></td>
+                <td th:text="${task.title}"></td>
+                <td th:text="${task.deadline}"></td>
+                <td>
+                    <span th:text="${task.priority}"
+                          th:style="${task.priority == 'HIGH' ? 'color: red; font-weight: bold;' : (task.priority == 'MEDIUM' ? 'color: orange; font-weight: bold;' : 'color: green; font-weight: bold;')}">
+                    </span>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(tasks)}">
+                <td colspan="4" style="text-align: center; color: #7f8c8d;">Chưa có công việc nào.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+

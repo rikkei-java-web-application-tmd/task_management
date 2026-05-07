@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring MVC
+    implementation 'org.springframework:spring-webmvc:6.1.4'
+
+    // Thymeleaf tích hợp Spring 6
+    implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
+
+    // Hibernate Validator (Bắt buộc cho @Valid, @NotBlank,...)
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+    // Servlet API (Chỉ dùng lúc compile, Tomcat sẽ tự cung cấp lúc chạy)
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

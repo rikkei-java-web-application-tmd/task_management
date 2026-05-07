@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm mới công việc</title>
+    <style>
+        .error-message { color: #e74c3c; font-size: 14px; display: block; margin-top: 5px; font-weight: bold; }
+        .form-group { margin-bottom: 25px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="date"], select { padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { padding: 10px 20px; background-color: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .btn-cancel { margin-left: 15px; text-decoration: none; color: #7f8c8d; }
+    </style>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 30px;">
+    <h2>Thêm Công Việc Mới</h2>
+
+    <form th:action="@{/tasks/add}" th:object="${taskItem}" method="post" style="background: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 500px; border: 1px solid #ddd;">
+
+        <div class="form-group">
+            <label>Tên công việc:</label>
+            <input type="text" th:field="*{title}" placeholder="Nhập tên công việc..." />
+            <span class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Hạn hoàn thành:</label>
+            <input type="date" th:field="*{deadline}" />
+            <span class="error-message" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Mức độ ưu tiên:</label>
+            <select th:field="*{priority}">
+                <option value="">-- Chọn mức độ ưu tiên --</option>
+                <option value="HIGH">HIGH</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="LOW">LOW</option>
+            </select>
+            <span class="error-message" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}"></span>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button type="submit" class="btn-submit">Lưu Công Việc</button>
+            <a th:href="@{/tasks}" class="btn-cancel">Quay lại danh sách</a>
+        </div>
+
+    </form>
+</body>
+</html>
+
